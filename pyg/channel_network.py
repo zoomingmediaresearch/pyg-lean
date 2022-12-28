@@ -37,8 +37,6 @@ from collections import defaultdict
 from apiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from provit.prov import Provenance
-
 from .utils import get_channel_id
 from .config import load_config, PROV_AGENT
 
@@ -177,13 +175,6 @@ class RelatedChannelsNetwork(object):
             G.nodes[node]["label"] = self.channel_metadata[node]["title"]
 
         nx.write_graphml(G, filepath)
-        prov = Provenance(filepath)
-        prov.add(
-            agents=[ PROV_AGENT ], 
-            activity="channel_network", 
-            description="Youtube channel network for the seed channels <{}> and depth <{}>".format(self.seeds, self.depth))
-        prov.add_primary_source("youtube", url="https://www.youtube.com")
-        prov.save()
 
     def _load_cache(self):
         """

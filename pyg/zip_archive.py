@@ -23,7 +23,6 @@ y = z.get("y.json")
 import zipfile
 import json
 import os
-from provit.prov import Provenance
 
 class ZipArchive(zipfile.ZipFile):
 
@@ -68,15 +67,6 @@ class ZipArchive(zipfile.ZipFile):
             return True
         else:
             return False
-
-    def add_provenance(self, agents, activity, description):
-        prov = Provenance(self.filepath)
-        prov.add(
-            agents=agents, 
-            activity=activity, 
-            description=description)
-        prov.add_primary_source("youtube", url="https://www.youtube.com")
-        prov.save()   
 
     def __iter__(self):
         for filename in self.namelist():

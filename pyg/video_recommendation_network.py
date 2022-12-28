@@ -26,7 +26,6 @@ from apiclient.discovery import build
 from bs4 import BeautifulSoup
 
 from .config import load_config, PROV_AGENT
-from provit.prov import Provenance
 
 OUT_DIR = "video_networks"
 
@@ -161,19 +160,6 @@ class VideoRecommendationNetwork(object):
             G.nodes[node]["comments"] = self.metadata[node]["comments"]
 
         nx.write_graphml(G, filepath)
-
-        #add provenance information
-        prov = Provenance(filepath)
-        if self.q:
-            description = "Youtube recommended video network for q='{}' and depth <{}>".format(self.q, self.depth)
-        else:
-            description = "Youtube recommended video network for seeds='{}' and depth <{}>".format(self.seeds, self.depth)
-        prov.add(
-            agents=[ PROV_AGENT ], 
-            activity="video_network", 
-            description=description)
-        prov.add_primary_source("youtube", url="https://www.youtube.com")
-        prov.save()
 
 
     def __init__(self, name=None, q=None, seeds=None, depth=2, api=True):

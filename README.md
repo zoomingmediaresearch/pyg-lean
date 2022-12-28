@@ -96,8 +96,6 @@ $ pyg fetch channels other_group
 
 The channels will be fetched and saved into the projects data folder (which is specified in the previously configured *config.yml*) Each groups contents will be stored in a separate folder, and each channel in a separate zip archive (See e.g. [olf42/zip_archive](https://github.com/olf42/zip_archive) for a small zip file wrapper in Python). 
 
-Additonally provenance information is recorded an stored next to the zip files. The provenance information is stored in JSON-LD using the W3C PROV-O ontology. See [diggr/provit](https://github.com/diggr/provit) for more information about recording, reading and processing provenance information.
-
 ### Fetching Videos
 
 It is also possible to just get single videos in a similar way. Add the videos IDs to your *videos.yml*:

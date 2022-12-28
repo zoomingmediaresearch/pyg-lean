@@ -10,7 +10,6 @@ VideoFetcher(["list", "of", "video", "ids"], project_name="project_name)
 
 Output:
 <pyg_project_dir>/channels/<channel_title_or_project_name>.zip
-                           <channel_title_or_project_name>.zip.prov
 """
 
 import re
@@ -23,7 +22,6 @@ import time
 import zipfile
 
 from datetime import datetime
-from provit import Provenance
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 from apiclient.discovery import build
@@ -296,11 +294,6 @@ class VideoFetcher(YoutubeFetcher):
             if captions:
                 self._fetch_video_captions(video_id)
 
-        self._archive.add_provenance (
-            agents=[ PROV_AGENT ], 
-            activity="fetch_video_collection", 
-            description="Youtube video/comment data for collection <{}>".format(project_name))
-
 
 class ChannelFetcher(YoutubeFetcher):
     """
@@ -344,11 +337,6 @@ class ChannelFetcher(YoutubeFetcher):
                 self._fetch_channel_comments()
                 self._fetch_playlists()
                 self._fetch_channel()
-
-                self._archive.add_provenance(
-                    agents=[ PROV_AGENT ], 
-                    activity="fetch_channel", 
-                    description="Youtube video/comment data for channel <{}>".format(self.channel_title))
 
 
     def _fetch_channel(self):
@@ -553,13 +541,4 @@ class ChannelUpdateFetcher(YoutubeFetcher):
         else:
             print(self._current.last_update_file())
             self._archive.add("video_ids.json", updated)
-            prov = Provenance(self._archive.filepath)
-            prov.add(
-                agents=[ PROV_AGENT ], 
-                activity="update_channel", 
-                description="Youtube video/comment update data for channel <{}>".format(self.channel_title)
-            )
-            prov.add_sources([ self._current.last_update_file() ])
-            prov.save()
-            
 
