@@ -2,7 +2,9 @@
 
 ![Python 3]( https://img.shields.io/badge/python-3.5%20%7C%203.6%20%7C%203.7-blue.svg)
 
-NOTE: CURRENTLY UNDER RECONSTRUCTION
+#######################################
+# NOTE: CURRENTLY UNDER RECONSTRUCTION
+#######################################
 
 *pyg* is a wrapper around the Youtube-API, and allows easy retrieval and analysis
 of specific data.
