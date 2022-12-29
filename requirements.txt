@@ -14,9 +14,7 @@ click
 pandas
 numpy
 scipy
-matplotlib
 bs4
 pyyaml
 pysocks
 google-api-python-client
-matplotlib-venn
