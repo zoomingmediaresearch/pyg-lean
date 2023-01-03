@@ -51,7 +51,7 @@ setup(
         'Topic :: System :: Logging',
     ],
     keywords=[
-        'datamining', 'youtube', 'elasticsearch', 'data analysis', 'social media analysis'
+        'datamining', 'youtube', 'data analysis', 'social media analysis'
     ],
 )
 

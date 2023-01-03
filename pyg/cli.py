@@ -1,10 +1,7 @@
 import click
 import os
-from .config import init_project, load_config, channel_config, video_config, network_config, set_proxy
+from .config import init_project, load_config, channel_config, video_config, set_proxy
 from .fetcher import ChannelFetcher, VideoFetcher, ChannelUpdateFetcher
-from .channel_network import RelatedChannelsNetwork
-from .video_recommendation_network import VideoRecommendationNetwork
-from .elasticsearch_ingest import elasticsearch_ingest
 from .analysis import UserStatsBuilder, channel_stats
 from .utils import get_channel_files
 
@@ -26,16 +23,8 @@ pyg
     update
         <group name>
 
-    network
-        <network name>
-        --api/--no-api (default: api)
-    
     analysis
         <analysis type>
-
-    es
-        <group name>
-        <index prefix>
 
 """
 
@@ -111,32 +100,6 @@ def channels(group):
     #             ChannelUpdateFetcher(channel=channel)
 
 
-# NETWORK COMMAND
-
-@cli.command()
-@click.option("--api/--no-api", default=True)
-@click.argument("network_name")
-@click.pass_context
-def network(ctx, api, network_name):
-    if ctx.obj:
-        click.echo("set proxy to: {}".format(ctx.obj["PROXY"]))
-        set_proxy(ctx.obj["PROXY"])
-    config = network_config(network_name)
-    type_ = config["type"]
-    print("\t buliding network <{}>".format(network_name))
-    if type_ == "videos":
-        q = config["q"] if "q" in config else None
-        seeds = config["seeds"] if "seeds" in config else None
-        vrn = VideoRecommendationNetwork(
-            name=network_name,
-            q=q, 
-            seeds=seeds, 
-            api=api,
-            depth=config["depth"])
-        vrn.to_graphml()
-
-
-
 # ANALYSIS COMMAND
 
 @cli.command()
@@ -146,27 +109,4 @@ def analysis(analysis_type):
         stats = UserStatsBuilder()
     elif analysis_type == "channel-stats":
         channel_stats()
-
-
-# ELASTICSEARCH EXPORT COMMANDS
-
-@cli.group()
-def elasticsearch():
-    pass
-
-@elasticsearch.command()
-@click.argument("group", default="all")
-@click.argument("prefix", default="")
-def channels(group, prefix):
-    elasticsearch_ingest(group, prefix)
-    print("es cahnnels")
-
-@elasticsearch.command()
-@click.argument("group", default="all")
-@click.argument("prefix", default="")
-def videos(group, prefix):
-    elasticsearch_ingest(group, prefix, is_video_list=True)
-    print("es videos")
-
-
 

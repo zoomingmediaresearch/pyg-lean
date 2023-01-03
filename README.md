@@ -43,16 +43,13 @@ $ pyg init
 
 ```
 
-The last command creates template files for the project configuration (config.yml), fetch items (channels.yml, videos.yml) and networks (network.yml). 
+The last command creates template files for the project configuration (config.yml) and fetch items (channels.yml, videos.yml). 
 
 ### Configuration
 
-Before you can start, you will need to add some information to the config.yml. Enter your Youtube API and credentials for your elasticsearch server key into the *config.yml* in order to proceed (the latter can be left blank if you don't intend to export to ES.
+Before you can start, you will need to add some information to the config.yml. Enter your Youtube API key into the *config.yml* in order to proceed.
 
 ```yaml
-elasticsearch:
-  prefix: pyg_        # default elasticsearch prefix
-  url: ''             # url for elasticsearch server
 network:
   proxy: ''           # if you use a proxy server, add it here
 project:         
@@ -140,7 +137,7 @@ network:
 You are required to give the *--proxy* option in order to use the given proxy.
 
 ```
-$ pyg --proxy network darksouls
+$ pyg --proxy fetch channels 
 ```
 
 ## Command line interface

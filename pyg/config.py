@@ -1,9 +1,9 @@
 """
 Initializes and loads project yaml files:
 
-- config.yml: project directory, youtube api key, elasticsearch credentials
-- fetch.yml: list of youtube channels to fetch
-- network.yml: specifies related channel/recommended video channels
+- config.yml: project directory, youtube api key
+- channels.yml: list of youtube channels to fetch
+- videos.yml: list of youtube channels to fetch
 """
 
 import yaml
@@ -18,19 +18,6 @@ PROV_AGENT = "pyg_{}".format(__VERSION__)
 
 
 #YAML TEMPLATES
-NETWORK_TEMPLATE = """
-# mgs:
-#   type: 'videos'
-#   q: 'metal gear solid'
-#   depth: 1
-#
-# yy_thegift:
-#   type: 'videos
-#   seeds:
-#   - 'Fg1EvKUhZw4'
-#   depth: 3  
-"""
-
 FETCH_TEMPLATE = """
 # channels:
 # - 'user/pythonselkanHD'
@@ -62,7 +49,7 @@ PLAYLISTS_DIR = "playlists"
 
 def init_project():
     """
-    Creates templates for config.yml, fetch.yml, network.yml
+    Creates templates for config.yml, channels.yml, videos.yml
     """
 
     config = {
@@ -76,10 +63,6 @@ def init_project():
         "youtube": {
             "api-key": ""
         },
-        "elasticsearch" : {
-            "url": "",
-            "prefix": "pyg_"
-        }
     }
     if not os.path.exists("config.yml"):
         with open("config.yml", "w") as f:
@@ -88,10 +71,6 @@ def init_project():
     if not os.path.exists("channels.yml"):
         with open("channels.yml", "w") as f:
             f.write(FETCH_CHANNELS_TEMPLATE)
-
-    if not os.path.exists("network.yml"):
-        with open("network.yml", "w") as f:
-            f.write(NETWORK_TEMPLATE)
 
     if not os.path.exists("videos.yml"):
         with open("videos.yml", "w") as f:
@@ -126,31 +105,6 @@ def load_config():
     return config
 
 
-def load_elasticsearch_config():
-    """
-    load elasticsearch credentials and index prefix from config.yml
-    """
-    try:
-        with open("config.yml") as f:
-            config = yaml.safe_load(f)
-    except:
-        raise IOError("config.yml not there ...")
-
-    try:
-        es_config = config["elasticsearch"]
-        url = es_config["url"]
-        prefix = es_config["prefix"]
-        ES_SERVER = url
-        
-        if prefix == "":
-            raise IOError("es index prefix needed in config.yml")
-
-        return ES_SERVER, prefix
-
-    except:
-        raise IOError("config.yml not valid")
-
-
 def channel_config():
     """
     yields all channel in channels.yml
@@ -174,22 +128,6 @@ def video_config():
     print(fetch)
     for group, video_ids in fetch.items():
         yield (group, video_ids)
-
-def network_config(network_name):
-    """
-    yields all network graph specifications in network.yml
-    """
-    try:
-        with open("network.yml") as f:
-            network = yaml.safe_load(f)
-    except:
-        raise IOError("network.yml does not exist")
-
-    for name, config in network.items():
-        if network_name == name:
-            return config
-
-    raise IOError("no config for network <{}> available".format(network_name)) 
 
 
 def set_proxy(proxy):

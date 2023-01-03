@@ -5,9 +5,7 @@
 #    make update-requirements
 #
 
-elasticsearch
 requests
-networkx
 tqdm
 lxml
 click
