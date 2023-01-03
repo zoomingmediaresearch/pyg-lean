@@ -8,7 +8,6 @@ Initializes and loads project yaml files:
 
 import yaml
 import os
-import json
 import socks
 import socket
 
@@ -104,7 +103,7 @@ def channel_config():
             fetch = yaml.safe_load(f)
     except:
         raise IOError("No valid channels.yml available")
-    
+
     for group, channels in fetch.items():
         yield (group, channels)
 

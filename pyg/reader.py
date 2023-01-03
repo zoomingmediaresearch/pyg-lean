@@ -36,12 +36,10 @@ for video in yt.videos:
 import json
 import os
 import re
-import zipfile
 
-from tqdm import tqdm
 from collections import Counter, defaultdict
 
-from .config import load_config, VIDEO_CAPTIONS_DIR, VIDEO_COMMENTS_DIR, VIDEO_METADATA_DIR, PLAYLISTS_DIR
+from .config import VIDEO_CAPTIONS_DIR, VIDEO_COMMENTS_DIR, VIDEO_METADATA_DIR, PLAYLISTS_DIR
 from .zip_archive import ZipArchive
 
 class YoutubeArchiveReader(object):
@@ -80,7 +78,7 @@ class YoutubeArchiveReader(object):
         base_path = os.path.dirname(filepath)
         archive = os.path.basename(filepath)
         for filename in sorted(os.listdir(base_path)):
-            if archive != filename and filename.startswith(archive.replace(".zip", "")) and not filename.endswith(".prov"):
+            if archive != filename and filename.startswith(archive.replace(".zip", "")):
                 print("\t", filename)
                 update_files.append(ZipArchive(os.path.join(base_path, filename)))
         print("finished")
@@ -152,12 +150,12 @@ class Video(object):
             h = 0
         m = re.search(r"(\d+)M", duration_str)
         try:
-            m = int(m.group(0)[:-1]) * 60 
+            m = int(m.group(0)[:-1]) * 60
         except:
-            m = 0            
+            m = 0
         s = re.search(r"(\d+)S", duration_str)
         try:
-            s = int(s.group(0)[:-1]) 
+            s = int(s.group(0)[:-1])
         except:
             s = 0
         #print(h+ m+ s)
