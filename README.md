@@ -16,15 +16,11 @@ of specific data.
 ## Features
  
 - Fetch Youtube data (metadata for videos, playlists, comments and captions) for channels as well as for collections of videos
-- Export data to Elasticsearch (videos and comments)
-- Build networks of recommended videos
-- Saves networks as .graphml files (can be imported into Gephi)
 
 ## Requirements
 
 - Python >3.5 
 - a Youtube API v3 key
-- a running Elasticsearch instance *optional*
 
 ## Installation
 
@@ -118,32 +114,6 @@ or for a specific group:
 $ pyg fetch videos my_video_list
 ```
 
-### Export to elasticsearch
-
-The video and channel data can be exported to an elasticsearch instance to ease further
-processing and investigation of the fetched data. The *export* command will build a 
-separate index for each data type (video related data and comment related data).
-If not specified otherwise, it will use the prefix defind in the *config.yaml*
-
-The following command will build two indices:
-pyg\_videos
-pyg\_comments
-
-```zsh
-$ pyg elasticsearch channels
-```
-
-The following command build two indices:
-my\_prefix\_videos
-my\_prefix\_comments
-
-```
-$ pyg elasticsearch channels other\_group my\_prefix
-```
-
-> CAUTION: If an index already exists, it will be overwritten!
-
-
 ### Fetching Updates 
 
 You can use the integrated update function to fetch new comments, videos and channels:
@@ -157,24 +127,6 @@ New videos will also fetched.
 
 An update-file for each channel in the form of <channel_name>_<timestamp>.zip will be created in the data folder.
 
-
-### Build recommended videos networks
-
-Add your network configuration to the *network.yml*:
-
-```yaml
-darksouls:
-  type: 'videos'
-  q: 'dark souls'
-  depth: 2
-```
-
-By using the *network* command, you can create a graphml file, which can be used in Gephi
-or similar tools to be investigated.
-
-```zsh
-$ pyg network darksouls
-```
 
 ### Usage behind a proxy Server
 
@@ -214,27 +166,16 @@ pyg
         channels
             <group name>
 
-    network
-        <network name>
-        --api/--no-api (default: api)
-
     analysis
         user-stats
         channel-stats
 
-    elasticsearch
-        channels
-            <group name>
-            <index prefix>
-        videos
-            <group name>
-            <index prefix>
 ```
 
 ## Copyright
 - 2019, Universitätsbibliothek Leipzig <info@ub.uni-leipzig.de>
 
-## Authors
+## Authors of the original *pyg*
 - P. Mühleder <muehleder@ub.uni-leipzig.de>
 - F. Rämisch <raemisch@ub.uni-leipzig.de>
 
