@@ -12,18 +12,8 @@ import json
 import socks
 import socket
 
-__VERSION__ = "1.0.0"
-
-PROV_AGENT = "pyg_{}".format(__VERSION__)
-
 
 #YAML TEMPLATES
-FETCH_TEMPLATE = """
-# channels:
-# - 'user/pythonselkanHD'
-# - 'channel/UCT6iAerLNE-0J1S_E97UAuQ'
-"""
-
 FETCH_CHANNELS_TEMPLATE = """
 # main:
 # - 'user/pythonselkanHD'
@@ -54,7 +44,7 @@ def init_project():
 
     config = {
         "project": {
-            "name": "pyg_project",
+            "name": "pygproject",
             "dir": "data"
         },
         "network": {

@@ -27,8 +27,8 @@ of specific data.
 Clone this repository and install it (preferably into a virtualenv):
 
 ```zsh
-$ git clone https://github.com/diggr/pyg
-$ cd pyg
+$ git clone https://github.com/zoomingmediaresearch/pyg-lean
+$ cd pyg-lean
 $ pip install .
 ```
 
@@ -54,7 +54,7 @@ network:
   proxy: ''           # if you use a proxy server, add it here
 project:         
   dir: data           # you might change the data directory (or not)
-  name: pyg_project   # change to your project name
+  name: pygproject   # change to your project name
 youtube:
   api-key: ''         # add your YouTube API key here, otherwise nothing will work
 ```

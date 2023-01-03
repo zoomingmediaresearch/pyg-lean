@@ -12,7 +12,7 @@ import pandas as pd
 
 from ..zip_archive import ZipArchive
 from ..reader import YoutubeArchiveReader
-from ..config import load_config, VIDEO_METADATA_DIR, PROV_AGENT
+from ..config import load_config, VIDEO_METADATA_DIR
 from ..utils import get_channel_files
 
 

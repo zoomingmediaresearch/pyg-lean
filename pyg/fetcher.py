@@ -30,7 +30,7 @@ from .errors import ApiRetryExceededError
 from .zip_archive import ZipArchive
 from .reader import YoutubeArchiveReader
 from .utils import get_channel_id, remove_html
-from .config import load_config, PROV_AGENT, DATA_DIR
+from .config import load_config, DATA_DIR
 
 YOUTUBE_URL = "https://www.youtube.com/watch?v={id}"
 
