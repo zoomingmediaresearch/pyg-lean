@@ -34,9 +34,6 @@ from .config import load_config, DATA_DIR
 
 YOUTUBE_URL = "https://www.youtube.com/watch?v={id}"
 
-CF = load_config()
-PROJECT_SOURCE = CF["PROJECT_SOURCE"]
-
 MAX_RETRIES = 15
 
 def youtube_api_call(cmd, max_retries=MAX_RETRIES):
@@ -284,7 +281,8 @@ class VideoFetcher(YoutubeFetcher):
 
         self._skip = skip
 
-        self._init_archive(project_name, source=PROJECT_SOURCE, type_="videos")
+        CF = load_config()
+        self._init_archive(project_name, source=CF["PROJECT_SOURCE"], type_="videos")
 
         self._archive.add("video_ids.json", video_ids)
 
@@ -334,7 +332,8 @@ class ChannelFetcher(YoutubeFetcher):
         else:
 
             self.channel_title = self.channel_metadata["items"][0]["snippet"]["title"]
-            skip = self._init_archive(self.channel_title, source=PROJECT_SOURCE, type_="channels", group=group)
+            CF = load_config()
+            skip = self._init_archive(self.channel_title, source=CF["PROJECT_SOURCE"], type_="channels", group=group)
 
             if not skip:
                 self._fetch_channel_comments()
