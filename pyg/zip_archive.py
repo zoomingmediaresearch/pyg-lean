@@ -44,10 +44,10 @@ class ZipArchive(zipfile.ZipFile):
                 data = json.dumps(data, indent=4)
             elif not isinstance(data, str):
                 raise TypeError("Ziparchive only supports datatypes string, list and dict")
-            self.writestr(filepath, data)    
+            self.writestr(filepath, data)
         else:
             print("file <{}> already in fetched".format(filepath))
-    
+
     def get(self, filepath):
         """
         Reads (text-)file from zip file.
@@ -57,7 +57,7 @@ class ZipArchive(zipfile.ZipFile):
         if filepath.endswith(".json"):
             return json.loads(data.decode("utf-8"))
         else:
-            return data.decode("utf-8")       
+            return data.decode("utf-8")
 
     def contains(self, filepath):
         """
@@ -71,12 +71,12 @@ class ZipArchive(zipfile.ZipFile):
     def __iter__(self):
         for filename in self.namelist():
             yield filename
-    
+
     def __getitem__(self, directory):
         for filename in self:
             if filename.startswith(directory+"/"):
                 yield filename[len(directory)+1:]
-    
+
     def __contains__(self, directory):
         for filename in self:
             if filename.startswith(directory+"/"):

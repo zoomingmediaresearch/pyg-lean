@@ -44,7 +44,8 @@ def init_project():
     config = {
         "project": {
             "name": "pygproject",
-            "dir": "data"
+            "dir": "data",
+            "source": "nosource"
         },
         "network": {
             "proxy": ""
@@ -89,6 +90,7 @@ def load_config():
         "YOUTUBE_API_KEY": YOUTUBE_API_KEY,
         "ADDON_DIR": os.path.join(PROJECT["dir"], ADDON_DIR),
         "PROJECT_NAME": PROJECT["name"],
+        "PROJECT_SOURCE": PROJECT["source"],
         "PROXY": PROXY
     }
     return config

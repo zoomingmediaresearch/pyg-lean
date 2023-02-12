@@ -66,7 +66,7 @@ class YoutubeArchiveReader(object):
         for update_file in self._update_files:
             for updated in update_file.get("video_ids.json"):
                 video_ids[updated] = update_file
-        
+
         for video_id, archive in video_ids.items():
             yield video_id, archive
 
@@ -207,9 +207,9 @@ class Video(object):
                 if verbose:
                     print("no comments available for <{}>".format(self.id))
                 return
-            
+
             replies_data = archive.get(replies_filepath)
-            
+
             for post, reply_count in self._all_comments(comments_data, replies_data):
                 id_ = post["id"]
                 author_name = post["snippet"]["authorDisplayName"]
@@ -278,13 +278,13 @@ class Video(object):
         """
         Iterates through the comment threads of this video
         """
-        
+
         threads = defaultdict(list)
         for comment in self.comments:
             if (comment["comment_thread"]):
                 threads[comment["comment_thread"]].append(comment)
-            
-        
+
+
         for thread_id, comments in threads.items():
             yield {
                 "thread_id": thread_id,

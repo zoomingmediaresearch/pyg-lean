@@ -26,7 +26,7 @@ from ..utils import get_channel_files
 def init_analysis_dir(cf):
     out_dir = os.path.join(cf["PROJECT_DIR"], "analysis")
     if not os.path.exists(out_dir):
-        os.makedirs(out_dir)    
+        os.makedirs(out_dir)
     return out_dir
 
 def channel_stats():
@@ -77,7 +77,7 @@ def channel_stats():
             "videos": videos,
             "comments": video_comments
         })
-    
+
     print("Total videos: {}".format(videos_total))
     print("Total comments: {}".format(comments_total))
     stats.append({
@@ -90,4 +90,4 @@ def channel_stats():
 
     stats_file = os.path.join(out_dir, "channel_stats.csv")
     df.to_csv(stats_file, columns=["title", "videos", "comments"], index=False)
-    
+

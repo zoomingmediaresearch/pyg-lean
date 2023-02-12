@@ -27,7 +27,6 @@ from ..config import load_config
 from ..zip_archive import ZipArchive
 from ..utils import get_channel_files
 
-#DATA_DIR = "0../../darksouls/data/channels/"
 USER_STATISTICS = "{}_user_stats.zip"
 
 class UserStatsBuilder(object):
@@ -49,7 +48,7 @@ class UserStatsBuilder(object):
 
     def channel_files(self):
         for channel_file in os.listdir(self.channel_dir):
-            if channel_file.endswith(".zip"):    
+            if channel_file.endswith(".zip"):
                 filepath = os.path.join(self.channel_dir, channel_file)
                 yield filepath, channel_file
 
@@ -61,17 +60,17 @@ class UserStatsBuilder(object):
             filename = channel_config["archive_name"]
             filepath = channel_config["archive"]
             channel = YoutubeArchiveReader(filepath=filepath)
-            for video in channel:         
+            for video in channel:
                 for comment in video.comments:
                     if comment["author_id"]:
                         comment["channel"] = filename.replace(".zip", "")
                         comment["video_id"] = video.id
                         users[comment["author_id"]].append(comment)
 
-        return users        
+        return users
 
     def get_first_comment(self, comments, channel):
-        comment_list = [ x for x in comments if channel == x["channel"] ] 
+        comment_list = [ x for x in comments if channel == x["channel"] ]
         first = sorted(comment_list, key=lambda x: x["timestamp"])[0]
         return {
             "timestamp": first["timestamp"],
@@ -79,7 +78,7 @@ class UserStatsBuilder(object):
         }
 
 
-    def build_user_stats(self):        
+    def build_user_stats(self):
 
         users = self.load_files()
         user_data = defaultdict(dict)
@@ -88,16 +87,16 @@ class UserStatsBuilder(object):
         print("building user stats ...")
         for user_id, comments in tqdm(users.items()):
             user_data[user_id]["total_comments"] = len(comments)
-            
+
             comment_lens = [ len(c["text"].split()) for c in comments ]
-            
+
             #comment stats by channel (count, first comment)
             comment_counts = dict(Counter([x["channel"] for x in comments ]))
             channel_stats = defaultdict(dict)
             for channel, count  in comment_counts.items():
                 channel_stats[channel]["comments"] = count
                 channel_stats[channel]["first_comment"] = self.get_first_comment(comments, channel)
-            
+
             #### total comments and avg comment length
             user_data[user_id]["comment_stats"] = channel_stats
             user_data[user_id]["text_len_average"] = np.array(comment_lens).mean()
@@ -110,7 +109,7 @@ class UserStatsBuilder(object):
             user_data[user_id]["first_comment_video"] = sort_comments[0]["video_id"]
             user_data[user_id]["last_comment_channel"] = sort_comments[-1]["channel"]
             user_data[user_id]["last_comment_date"] = sort_comments[-1]["timestamp"]
-            user_data[user_id]["last_comment_video"] = sort_comments[-1]["video_id"]   
+            user_data[user_id]["last_comment_video"] = sort_comments[-1]["video_id"]
 
             ### replies stats
             count = sum([ x["reply_count"] for x in comments ])
@@ -121,7 +120,7 @@ class UserStatsBuilder(object):
             #### user names
             names = set([ x["author"] for x in users[user_id] ])
             user_data[user_id]["names"] = list(names)
-            user_data[user_id]["id"] = user_id 
+            user_data[user_id]["id"] = user_id
 
 
         # rankings
