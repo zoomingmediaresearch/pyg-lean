@@ -541,6 +541,7 @@ class ChannelUpdateFetcher(YoutubeFetcher):
 
         if len(updated) == 0:
             os.remove(diff_filepath)
+            print("Nothing to update. No updated file is created.")
         else:
             print(self._current.last_update_file())
             self._archive.add("video_ids.json", updated)
