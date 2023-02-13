@@ -1,13 +1,9 @@
-# pyg - passable youtube grabber
+# pyg-lean - passable youtube grabber, the lean version
 
-![Python 3]( https://img.shields.io/badge/python-3.5%20%7C%203.6%20%7C%203.7-blue.svg)
-
-#######################################
-# NOTE: CURRENTLY UNDER RECONSTRUCTION
-#######################################
+![Python 3]( https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue.svg)
 
 *pyg* is a wrapper around the Youtube-API, and allows easy retrieval and analysis
-of specific data.
+of specific data. *pyg-lean* is a lean version of the original *pyg*. 
 
 > You need a working Youtube-API key in order to use this program. See the [Google Developers Portal](https://developers.google.com/youtube/v3/getting-started) for more information on how to create one. 
 
@@ -19,7 +15,7 @@ of specific data.
 
 ## Requirements
 
-- Python >3.5 
+- tested on Python 3.7, 3.8, 3.9, 3.10 
 - a Youtube API v3 key
 
 ## Installation
@@ -54,7 +50,8 @@ network:
   proxy: ''           # if you use a proxy server, add it here
 project:         
   dir: data           # you might change the data directory (or not)
-  name: pygproject   # change to your project name
+  name: pygproject    # change to your project name
+  source: nosource    # you can provide extra metadata here that will be included in the created zip archive filenames
 youtube:
   api-key: ''         # add your YouTube API key here, otherwise nothing will work
 ```
@@ -120,9 +117,9 @@ $ pyg update channels
 ```
 
 The update script checks for each video in the channel if the comment count changed. If so, the current video data will be fetched from the Youtube API.
-New videos will also fetched.
+New videos will also be fetched.
 
-An update-file for each channel in the form of <channel_name>_<timestamp>.zip will be created in the data folder.
+An update-file for each channel in the form of <channel_name>\_<source>\_updated\_<timestamp>.zip will be created in the data folder.
 
 
 ### Usage behind a proxy Server
