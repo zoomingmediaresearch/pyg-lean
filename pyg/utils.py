@@ -31,13 +31,12 @@ def get_channel_files(CF):
         print(group_dir)
         #ignore update files
         for filename in os.listdir(group_dir):
-            if "_2" not in filename:
-                archive_filepath = os.path.join(group_dir, filename)
-                channels.append({
-                    "archive": archive_filepath,
-                    "archive_name": filename,
-                    "group": group_name
-                })
+            archive_filepath = os.path.join(group_dir, filename)
+            channels.append({
+                "archive": archive_filepath,
+                "archive_name": filename,
+                "group": group_name
+            })
     return channels
 
 def get_video_files(CF):
