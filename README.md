@@ -119,7 +119,7 @@ $ pyg update channels
 The update script checks for each video in the channel if the comment count changed. If so, the current video data will be fetched from the Youtube API.
 New videos will also be fetched.
 
-An update-file for each channel in the form of <channel_name>\_<source>\_updated\_<timestamp>.zip will be created in the data folder.
+An update-file for each channel in the form of <channel_name>_<source>_updated_<timestamp>.zip will be created in the data folder.
 
 
 ### Usage behind a proxy Server
