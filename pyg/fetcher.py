@@ -494,7 +494,7 @@ class ChannelUpdateFetcher(YoutubeFetcher):
         self._current = YoutubeArchiveReader(archive_filepath)
 
         CF = load_config()
-        diff_filepath = os.path.join(os.path.dirname(archive_filepath), "{}_{}_updated_{}.zip".format(self.channel_title, CF["PROJECT_SOURCE"], datetime.now().isoformat()[:19]))
+        diff_filepath = os.path.join(os.path.dirname(archive_filepath), "{}_{}_update_{}.zip".format(self.channel_title, CF["PROJECT_SOURCE"], datetime.now().isoformat()[:19]))
         self._archive = ZipArchive(diff_filepath)
 
         updated = []
