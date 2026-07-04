@@ -176,3 +176,6 @@ pyg
 ## Licence
 - GNU General Public License v3 (Software)
 - CC-BY (Assets)
+
+## Terms of service and and privacy policy
+Please consult the [privacy policy](PRIVACY.md) and the [terms of service](TERMSOFSERVICE.md) before use.
